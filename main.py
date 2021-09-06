@@ -15,6 +15,7 @@ world = {
       "name": "West of House",
       "tags": "",
       "id": "1",
+	  "score": 0,
       "text": "This is an open field west of a white house, with a boarded front door.\n\n[[NORTH->North of House]]\n[[SOUTH->South of House]]\n[[WEST->Forest]]",
       "links": [
         {
@@ -40,6 +41,7 @@ world = {
       "name": "North of House",
       "tags": "",
       "id": "2",
+	  "score": 50,
       "text": "You are facing the north side of a white house. There is no door here, and all the windows are barred.\n\n[[WEST->West of House]]\n[[EAST->East of House]]\n[[NORTH->Forest]]",
       "links": [
         {
@@ -65,6 +67,7 @@ world = {
       "name": "South of House",
       "tags": "",
       "id": "3",
+	  "score": 50,
       "text": "You are facing the south side of a white house. There is no door here, and all the windows are barred.\n\n[[WEST->West of House]]\n[[EAST->East of House]]\n[[SOUTH->Forest]]",
       "links": [
         {
@@ -90,6 +93,7 @@ world = {
       "name": "Forest",
       "tags": "",
       "id": "4",
+	  "score": 120,
       "text": "This is a forest, with trees in all directions around you.\n\n[[NORTH->Sunlit Forest]]\n[[EAST->Forest]]\n[[SOUTH->Forest]]\n[[WEST->Forest]]",
       "links": [
         {
@@ -120,6 +124,7 @@ world = {
       "name": "East of House",
       "tags": "",
       "id": "5",
+	  "Score": 50,
       "text": "You are behind the white house. A path leads into the forest to the east. In one corner of the house there is a small window which is slightly ajar.\n\n[[NORTH->North of House]]\n[[SOUTH->South of House]]\n[[EAST->Sunlit Forest]]\n[[WEST->Kitchen]]\n[[ENTER->Kitchen]]",
       "links": [
         {
@@ -155,6 +160,7 @@ world = {
       "name": "Sunlit Forest",
       "tags": "",
       "id": "6",
+	  "Score": 200,
       "text": "This is a dimly lit forest, with large trees all around. One particularly large tree with some low branches stands here.\n\n[[NORTH->Forest]]\n[[SOUTH->Forest]]\n[[EAST->Forest]]\n[[WEST->East of House]]\n[[UP->Tree]]",
       "links": [
         {
@@ -190,6 +196,7 @@ world = {
       "name": "Kitchen",
       "tags": "",
       "id": "7",
+	  "Score": 200,
       "text": "You are in the kitchen of the white house. A table seems to have been used recently for the preparation of food. A passage leads to the west and a dark staircase can be seen leading upward. A dark chimney leads down and to the east is a small window which is open.\n\n[[EAST->East of House]]",
       "links": [
         {
@@ -205,6 +212,7 @@ world = {
       "name": "Tree",
       "tags": "",
       "id": "8",
+	  "Score": 200,
       "text": "You are about 10 feet above the ground nestled among some large branches. The nearest branch above you is above your reach. Beside you on the branch is a small bird's nest.\n\n[[DOWN->Sunlit Forest]]",
       "links": [
         {
@@ -232,6 +240,8 @@ def find_current_location(location_label):
 # ----------------------------------------------------------------
 
 def render(current_location, score, moves):
+	print("Score:" + str(score))
+	print("Moves: " + str(moves))
 	if "name" in current_location and "cleanText" in current_location:
 		print("You are at the " + str(current_location["name"]))
 		print(current_location["cleanText"] + "\n")
@@ -267,6 +277,11 @@ while True:
 	current_location = find_current_location(location_label)
 	render(current_location, score, moves)
 	response = get_input()
+	moves += 1
+	if "score" in current_location:
+		score = score + current_location["score"]
+	
+
 
 
 print("Thanks for playing!")
